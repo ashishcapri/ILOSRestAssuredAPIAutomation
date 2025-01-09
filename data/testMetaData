@@ -1,0 +1,47 @@
+{	
+		"pinCode": {
+		"inputKeys" : ["pincode","status","httpStatus","city","state"]
+		"outputKey" : ["testScenarios","httpStatus","city","state","status"]
+		"UtmSource": {"length":"255", "type":"string", "isNull":true, "isMandatory":true }
+		"IsExternal": {"length":"255", "type":"string", "isNull":true, "isMandatory":true }	
+	}
+	"enCode": {
+		"inputKeys" : ["aadhar","status","httpStatus","reference",]
+		"outputKey" : ["testScenarios","httpStatus","reference","status"]
+		"UtmSource": {"length":"255", "type":"string", "isNull":true, "isMandatory":true }
+		"IsExternal": {"length":"255", "type":"string", "isNull":true, "isMandatory":true }	
+	}
+	"swarnimLogin": {
+		"inputKeys" : ["aadhar","status","httpStatus","reference",]
+		"outputKey" : ["testScenarios","role","success","status"]
+		"UtmSource": {"length":"255", "type":"string", "isNull":true, "isMandatory":true }
+		"IsExternal": {"length":"255", "type":"string", "isNull":true, "isMandatory":true }	
+	}
+	"customersearchData": {
+		"inputKeys" : ["aadhar","status","httpStatus","reference",]
+		"outputKey" : ["testScenarios","testId","customerID","status","success"]
+		"UtmSource": {"length":"255", "type":"string", "isNull":true, "isMandatory":true }
+		"IsExternal": {"length":"255", "type":"string", "isNull":true, "isMandatory":true }	
+		
+	}
+	"panVerfication" :{
+	"inputKeys" : ["aadhar","status","httpStatus","reference",]
+	"outputKey" : ["testScenarios","testId","full_name","status","message","httpstatus"]
+	"UtmSource": {"length":"255", "type":"string", "isNull":true, "isMandatory":true }
+		"IsExternal": {"length":"255", "type":"string", "isNull":true, "isMandatory":true }	
+	}
+	"IFSCSearchTest" :{
+	"inputKeys" : ["aadhar","status","httpStatus","reference",]
+	"outputKey" : ["testScenarios","testId","bank","branch","message","status"]
+	"UtmSource": {"length":"255", "type":"string", "isNull":true, "isMandatory":true }
+		"IsExternal": {"length":"255", "type":"string", "isNull":true, "isMandatory":true }	
+	}
+
+	"Deputation" :{
+    	"inputKeys" : ["aadhar","status","httpStatus","reference",]
+    	"outputKey" : ["testScenarios","testId","bank","branch","message","status"]
+    	"UtmSource": {"length":"255", "type":"string", "isNull":true, "isMandatory":true }
+    		"IsExternal": {"length":"255", "type":"string", "isNull":true, "isMandatory":true }
+    	}
+	
+}
