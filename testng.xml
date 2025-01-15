@@ -7,6 +7,9 @@
 	   <class name="API.VaultEncode"/>
 			<class name="API.SAAuthentication"/>
 			<class name="API.SBU_Login"/>
+			<class name="API.PINCodeset"/>
+			<class name="API.SAAuthentication"/>
+			<class name="API.Bank_Account_Verification"/>
 
 
 
