@@ -23,13 +23,13 @@ import java.util.Map;
 
 public class ILOS_Login extends BaseFile {
 
-    private static final String TESTCASES_SHEET = "Sbu_login";
-    private static final String SHEET_NAME = "Sbu_loginSheet";
+    private static final String TESTCASES_SHEET = "ILOS_login";
+    private static final String SHEET_NAME = "ILOSSheet1";
     ExtentReports extent;
-
+       public static String Token=null;
     PropertyFile propReader = new PropertyFile();
     int rownum;
-    Map<String, Object> cache = ReadMetaData.getMetdataCache();
+    //Map<String, Object> cache = ReadMetaData.getMetdataCache();
 
     /**
      * This method is used to read from excel.
@@ -48,7 +48,7 @@ public class ILOS_Login extends BaseFile {
             for (int i = 0; i < rownum; i++) {
                 empdata[i][0] = dataList.get(i);
             }
-            return (empdata);
+            return empdata;
         }
     }
 
@@ -67,6 +67,8 @@ public class ILOS_Login extends BaseFile {
 
     @Test(dataProvider = "SAAUTH")
     private void pinCodeAPI(Map<String, Object> testData) {
+
+        System.out.println("_________ print me ___________");
         if (testData.entrySet() != null) {
             for (Map.Entry<String, Object> entry : testData.entrySet()) {
                 JSONObject apirequest = (JSONObject) entry.getValue();
@@ -85,6 +87,7 @@ public class ILOS_Login extends BaseFile {
                 requestBody.put("username", UserID);
                 requestBody.put("password", Passward);
                 requestBody.put("app", app);
+                requestBody.put("l_t", "capri_user");
                 if(TestID.equals("TC_04"))
                     requestBody.remove("username");
                 if(TestID.equals("TC_05"))
@@ -93,10 +96,14 @@ public class ILOS_Login extends BaseFile {
                     requestBody.remove("app");
 
                 // Perform the API call
+                System.out.println(requestBody);
                 Response responses = RestAssured.given()
                         .contentType(ContentType.JSON)
                         .body(requestBody)
-                        .post(propReader.getProp().get("Sbu_loginBaseURL").toString().trim());
+                        .post(propReader.getProp().get("ILOSloginBaseURL").toString().trim());
+
+
+                System.out.println("URL -: " + propReader.getProp().get("ILOSloginBaseURL").toString().trim());
 
                 // Store the response
                 String response= responses.getBody().asString();
@@ -119,13 +126,21 @@ public class ILOS_Login extends BaseFile {
                     e.printStackTrace();
                 }
                 JSONObject apiResponse;
+                String Reason=null;
 
                 apiResponse = (JSONObject) JSON;
 
+                if(TestID.equals("TC_01")){
+                JSONObject data  =(JSONObject) apiResponse.get("dt");
+                Token=data.get("token").toString();
+                System.out.println( "Token from the API -:" +Token);}
+
+
                 if(apiResponse.containsKey("msg")){
                     String message = (String) apiResponse.get("msg");
-                    if(!message.equals(Message))
-                        flag = false;
+                    if(!message.equals(Message)){
+                        Reason =Reason +"Massage is not as per expected";
+                        flag = false;}
                 }
             if(TestID.equals("TC_04") || TestID.equals("TC_09") ){
                 if(!apiResponse.containsKey("username")){

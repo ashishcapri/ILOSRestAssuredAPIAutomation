@@ -3,13 +3,10 @@
 <suite name="Suite">
 	<test thread-count="5" name="Test">
 		<classes>
-		   <class name="API.PINCodeAPIValidation" />
-	   <class name="API.VaultEncode"/>
-			<class name="API.SAAuthentication"/>
-			<class name="API.SBU_Login"/>
-			<class name="API.PINCodeset"/>
-			<class name="API.SAAuthentication"/>
-			<class name="API.Bank_Account_Verification"/>
+		   <class name="API.ILOS_Login" />
+			<class name="API.CPU_List" />
+			<class name="API.CPU_Lead_Detail" />
+
 
 
 
