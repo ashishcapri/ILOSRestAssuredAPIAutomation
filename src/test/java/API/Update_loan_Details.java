@@ -70,7 +70,10 @@ public class Update_loan_Details extends BaseFile {
         Comman.Setdate();
 
         System.out.println("_________ print me _______ 4____");
-       if(CPU_Lead_Detail.portfolio_type == "home loan" & CPU_Lead_Detail.borrower_type == "sep"){
+
+        if (CPU_Lead_Detail.portfolio_type.equals("home loan") && CPU_Lead_Detail.borrower_type.equals("sep")) {
+
+
         if (testData.entrySet() != null) {
             for (Map.Entry<String, Object> entry : testData.entrySet()) {
                 JSONObject apirequest = (JSONObject) entry.getValue();
@@ -172,4 +175,8 @@ public class Update_loan_Details extends BaseFile {
             }
 
         }
-    }}}
+           System.out.println("Size of guarantors is : "+CPU_Lead_Detail.guarantorSize);
+
+    }}
+
+    }

@@ -31,6 +31,7 @@ public class CPU_Lead_Detail extends BaseFile {
     public static String borrower_type=null;
     JSONObject apiResponse=null;;
     JSONObject dt= null;
+    public static int guarantorSize=0;
     //Map<String, Object> cache = ReadMetaData.getMetdataCache();
 
     /**
@@ -121,7 +122,7 @@ public class CPU_Lead_Detail extends BaseFile {
                     JSONArray guarantors = (JSONArray) applicant.get("guarantors");
 
                     if (guarantors != null) {
-                        int guarantorSize = guarantors.size();
+                         guarantorSize = guarantors.size();
                         System.out.println("Total guarantors: " + guarantorSize);
                     } else {
                         System.out.println("No guarantors found.");
