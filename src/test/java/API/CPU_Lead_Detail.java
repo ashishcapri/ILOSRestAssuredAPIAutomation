@@ -124,6 +124,12 @@ public class CPU_Lead_Detail extends BaseFile {
                     if (guarantors != null) {
                          guarantorSize = guarantors.size();
                         System.out.println("Total guarantors: " + guarantorSize);
+                        for (int i = 0; i < guarantorSize; i++) {
+                            JSONObject guarantor = (JSONObject) guarantors.get(i);
+                            String portfolioType = (String) guarantor.get("entity_type");
+
+                            System.out.println("Guarantor " + (i + 1) + " Entity Type: " + portfolioType);
+                        }
                     } else {
                         System.out.println("No guarantors found.");
                     }

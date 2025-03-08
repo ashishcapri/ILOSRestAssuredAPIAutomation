@@ -71,6 +71,10 @@ public class Update_loan_Details extends BaseFile {
 
         System.out.println("_________ print me _______ 4____");
 
+        for (int i = 0; i < CPU_Lead_Detail.guarantorSize; i++) {
+            System.out.println("Processing guarantor #" + (i + 1));
+        }
+
         if (CPU_Lead_Detail.portfolio_type.equals("home loan") && CPU_Lead_Detail.borrower_type.equals("sep")) {
 
 
