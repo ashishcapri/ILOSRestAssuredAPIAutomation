@@ -29,7 +29,8 @@ public class CPU_Lead_Detail extends BaseFile {
     int rownum;
     public static String portfolio_type=null;
     public static String borrower_type=null;
-
+    JSONObject apiResponse=null;;
+    JSONObject dt= null;
     //Map<String, Object> cache = ReadMetaData.getMetdataCache();
 
     /**
@@ -84,7 +85,7 @@ public class CPU_Lead_Detail extends BaseFile {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                JSONObject apiResponse;
+
                 String Reason=null;
 
                 apiResponse = (JSONObject) JSON;
@@ -95,7 +96,7 @@ public class CPU_Lead_Detail extends BaseFile {
 
         System.out.println("portfolio_type is : "+newjson);
 
-        JSONObject dt=(JSONObject) apiResponse.get("dt");
+         dt=(JSONObject) apiResponse.get("dt");
         JSONObject primary=(JSONObject) dt.get("primary");
         JSONObject inquiry_details=(JSONObject) primary.get("inquiry_details");
         portfolio_type=inquiry_details.get("portfolio_type").toString();
@@ -105,6 +106,66 @@ public class CPU_Lead_Detail extends BaseFile {
 
 
         System.out.println("portfolio_type is : "+portfolio_type +"borrower_type is : "+borrower_type);
+
+
+
+        try
+        {
+            JSONObject apiResponse = (JSONObject) new JSONParser().parse(response);
+            JSONObject dt = (JSONObject) apiResponse.get("dt");
+
+            if (dt != null) {
+                JSONObject applicant = (JSONObject) dt.get("applicant");
+
+                if (applicant != null) {
+                    JSONArray guarantors = (JSONArray) applicant.get("guarantors");
+
+                    if (guarantors != null) {
+                        int guarantorSize = guarantors.size();
+                        System.out.println("Total guarantors: " + guarantorSize);
+                    } else {
+                        System.out.println("No guarantors found.");
+                    }
+                } else {
+                    System.out.println("applicant is missing or null.");
+                }
+            } else {
+                System.out.println("dt is missing or null.");
+            }
+        } catch (ParseException e) {
+            System.err.println("Error parsing JSON response: " + e.getMessage());
+        }
+
+        /// ////////
+        try
+        {
+            JSONObject apiResponse = (JSONObject) new JSONParser().parse(response);
+            JSONObject dt = (JSONObject) apiResponse.get("dt");
+
+            if (dt != null) {
+                JSONObject applicant = (JSONObject) dt.get("applicant");
+
+                if (applicant != null) {
+                    JSONArray coApplicants = (JSONArray) applicant.get("co_applicant");
+
+                    if (coApplicants != null) {
+                        int coApplicantsSize = coApplicants.size();
+                        System.out.println("Total coApplicants: " + coApplicantsSize);
+                    } else {
+                        System.out.println("No coapplicant found.");
+                    }
+                } else {
+                    System.out.println("applicant is missing or null.");
+                }
+            } else {
+                System.out.println("dt is missing or null.");
+            }
+        } catch (ParseException e) {
+            System.err.println("Error parsing JSON response: " + e.getMessage());
+        }
+
+
+
 ///
 
     }}
