@@ -71,8 +71,20 @@ public class Update_loan_Details extends BaseFile {
 
         System.out.println("_________ print me _______ 4____");
 
-        for (int i = 0; i < CPU_Lead_Detail.guarantorSize; i++) {
-            System.out.println("Processing guarantor #" + (i + 1));
+
+
+
+        if (CPU_Lead_Detail.guarantors != null) {
+            System.out.println("Total guarantors: " + CPU_Lead_Detail.guarantorSize);
+            for (int i = 0; i < CPU_Lead_Detail.guarantorSize; i++) {
+                JSONObject guarantor = (JSONObject) CPU_Lead_Detail.guarantors.get(i);
+                String entityType = (String) guarantor.get("entity_type");
+
+                System.out.println("Guarantor " + (i + 1) + " Entity Type new: " + entityType);
+
+
+            }
+
         }
 
         if (CPU_Lead_Detail.portfolio_type.equals("home loan") && CPU_Lead_Detail.borrower_type.equals("sep")) {

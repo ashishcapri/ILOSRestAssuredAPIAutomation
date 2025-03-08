@@ -32,6 +32,9 @@ public class CPU_Lead_Detail extends BaseFile {
     JSONObject apiResponse=null;;
     JSONObject dt= null;
     public static int guarantorSize=0;
+    public static JSONArray guarantors = new JSONArray(); // Declare globally
+
+
     //Map<String, Object> cache = ReadMetaData.getMetdataCache();
 
     /**
@@ -119,16 +122,16 @@ public class CPU_Lead_Detail extends BaseFile {
                 JSONObject applicant = (JSONObject) dt.get("applicant");
 
                 if (applicant != null) {
-                    JSONArray guarantors = (JSONArray) applicant.get("guarantors");
+                     guarantors = (JSONArray) applicant.get("guarantors");
 
                     if (guarantors != null) {
                          guarantorSize = guarantors.size();
                         System.out.println("Total guarantors: " + guarantorSize);
                         for (int i = 0; i < guarantorSize; i++) {
                             JSONObject guarantor = (JSONObject) guarantors.get(i);
-                            String portfolioType = (String) guarantor.get("entity_type");
+                            String entityType = (String) guarantor.get("entity_type");
 
-                            System.out.println("Guarantor " + (i + 1) + " Entity Type: " + portfolioType);
+                            System.out.println("Guarantor " + (i + 1) + " Entity Type: " + entityType);
                         }
                     } else {
                         System.out.println("No guarantors found.");
