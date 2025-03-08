@@ -6,12 +6,7 @@
 		   <class name="API.ILOS_Login" />
 			<class name="API.CPU_List" />
 			<class name="API.CPU_Lead_Detail" />
-
-
-
-
-
-
+			<class name="API.Update_loan_Details" />
 
 		</classes>
 	</test>

@@ -28,6 +28,7 @@ public class CPU_Lead_Detail extends BaseFile {
     PropertyFile propReader = new PropertyFile();
     int rownum;
     public static String portfolio_type=null;
+    public static String borrower_type=null;
 
     //Map<String, Object> cache = ReadMetaData.getMetdataCache();
 
@@ -99,11 +100,11 @@ public class CPU_Lead_Detail extends BaseFile {
         JSONObject inquiry_details=(JSONObject) primary.get("inquiry_details");
         portfolio_type=inquiry_details.get("portfolio_type").toString();
 
+        borrower_type=inquiry_details.get("borrower_type").toString();
 
 
 
-        System.out.println("portfolio_type is : "+portfolio_type);
-
+        System.out.println("portfolio_type is : "+portfolio_type +"borrower_type is : "+borrower_type);
 ///
 
     }}
