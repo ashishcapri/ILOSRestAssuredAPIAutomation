@@ -7,9 +7,11 @@ import com.aventstack.extentreports.ExtentReports;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -81,8 +83,36 @@ public class Update_loan_Details extends BaseFile {
                 String entityType = (String) guarantor.get("entity_type");
 
                 System.out.println("Guarantor " + (i + 1) + " Entity Type new: " + entityType);
+                if (entityType.equals("Organization") || entityType.equals("organization")){
+
+                    String patchPayload = String.format( "{\"applicant\":{\"guarantors_index\":{\"%d\":{\"mobile_number\":\"9599362508\",\"entity_type\":\"organization\",\"kyc_aadhar\":{\"name\":\"test\"},\"address_details\":{\"current_address\":{\"address_line_1\":\"cO Sushil Gyanchand Gadi Plot No\"}},\"relationship\":\"partnership\",\"is_financial_co_applicant\":\"No\",\"kyc_pan\":{\"pan_number\":\"AZQPV9557D\",\"name\":\"test\",\"date_of_incorporation\":\"1998-01-08\"},\"gst_number\":\"\",\"kyc_additional_doc\":[{\"url\":\"https://pragati-uat-bucket.s3.ap-south-1.amazonaws.com/uploads/9bd68e91-7621-41e2-a676-6823072c27ce_1000254107jpg.jpg\",\"id_number\":\"12457\",\"document_type\":\"GST returns\",\"valid_upto\":null}]}}}}",i);
 
 
+                    System.out.println("Start " +i+" guarantors" );
+                    Response responses = RestAssured.given()
+                            .baseUri(propReader.getProp().get("loandetailupdateURL").toString().trim()+CPU_List.obj_ID).body(patchPayload)
+                            .header("accept", "application/json, text/plain, */*")
+                            .header("authorization",  ILOS_Login.Token)
+                            .header("origin", "https://ilos-uat.capriglobal.in")
+                            .header("referer", "https://ilos-uat.capriglobal.in/")
+                            .header("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36")
+                            .contentType(ContentType.JSON)
+                            .when().log().all().patch();
+
+
+
+                System.out.println("PATCH Response: " + responses.getBody().asString());
+                Assert.assertEquals(responses.getStatusCode(), 200, "PATCH request failed!");
+
+                    System.out.println("END " +i+" guarantors" );
+
+
+                }
+
+                else {
+
+                    System.out.println("Guarantor is invalid" );
+                }
             }
 
         }

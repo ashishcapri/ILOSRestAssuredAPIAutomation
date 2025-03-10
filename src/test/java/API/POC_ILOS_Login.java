@@ -3,7 +3,6 @@ package API;
 import Utility.BaseFile;
 import Utility.ExcelRead;
 import Utility.PropertyFile;
-import Utility.ReadMetaData;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
 import io.restassured.RestAssured;
@@ -22,24 +21,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ILOS_Login extends BaseFile {
+public class POC_ILOS_Login extends BaseFile {
 
-    private static final String TESTCASES_SHEET = "ILOS_login";
-    private static final String SHEET_NAME = "ILOSSheet1";
     ExtentReports extent;
        public static String Token=null;
     PropertyFile propReader = new PropertyFile();
     int rownum;
-    //Map<String, Object> cache = ReadMetaData.getMetdataCache();
 
-    /**
-     * This method is used to read from excel.
-     */
-    Map<String, Object>[][] empdata;
-
-    /*
-     * DataProvider for multiple login scenarios
-     */
+    // ✅ DataProvider to supply multiple names, ages, and cities
     @DataProvider(name = "loginDataProvider")
     public Object[][] provideLoginData() {
         return new Object[][]{
@@ -47,6 +36,7 @@ public class ILOS_Login extends BaseFile {
                 {"invaliduser@capriglobal.in", "wrongpassword", false},  // ❌ Invalid Login
         };
     }
+
     /*
      * This method is calling extent report.
      */
@@ -60,9 +50,6 @@ public class ILOS_Login extends BaseFile {
      * This method is used to test the API.
      */
 
-    /*
-     * Test Login API with different credentials
-     */
     @Test(dataProvider = "loginDataProvider")
     public void testLogin(String user, String pswd, boolean isValidLogin) {
         // Request payload
@@ -73,31 +60,29 @@ public class ILOS_Login extends BaseFile {
                 .baseUri("https://ilosapi-uat.capriglobal.in")
                 .basePath("/ilosuser/v1/login")
                 .header("accept", "application/json, text/plain, */*")
+                .header("accept-language", "en-GB,en-US;q=0.9,en;q=0.8")
                 .header("content-type", "application/json")
+                .header("origin", "https://ilos-uat.capriglobal.in")
+                .header("referer", "https://ilos-uat.capriglobal.in/")
+                .header("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36")
                 .contentType(ContentType.JSON)
                 .body(payload)
                 .when()
                 .post();
 
         // Print Response
-        String responseBody = response.getBody().asString();
-        System.out.println("Response for user [" + user + "]: " + responseBody);
+        System.out.println("Response for user [" + user + "]: " + response.getBody().asString());
 
         // Validate Response
         int statusCode = response.getStatusCode();
         Assert.assertEquals(statusCode, isValidLogin ? 200 : 400, "Unexpected status code!");
 
-        // Extract Token from JSON path "dt.token"
+        // Extract Token for valid login
         if (isValidLogin) {
             try {
-                JSONObject jsonResponse = (JSONObject) new JSONParser().parse(responseBody);
-                JSONObject dtObject = (JSONObject) jsonResponse.get("dt");  // Extract "dt" object
-                if (dtObject != null && dtObject.get("token") != null) {
-                    Token = dtObject.get("token").toString();
-                    System.out.println("Extracted Token: " + Token);
-                } else {
-                    System.out.println("Token not found in response!");
-                }
+                JSONObject jsonResponse = (JSONObject) new JSONParser().parse(response.getBody().asString());
+                Token = jsonResponse.get("token").toString();
+                System.out.println("Extracted Token: " + Token);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
