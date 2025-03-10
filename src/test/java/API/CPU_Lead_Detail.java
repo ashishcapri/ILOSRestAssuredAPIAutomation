@@ -37,6 +37,9 @@ public class CPU_Lead_Detail extends BaseFile {
     public static int coApplicantsSize=0;
     public static JSONArray coApplicants = new JSONArray(); // Declare globally
 
+    public static int bankAccDetailsSize=0;
+    public static JSONArray bankAccDetails = new JSONArray(); // Declare globally
+
 
 
     //Map<String, Object> cache = ReadMetaData.getMetdataCache();
@@ -195,11 +198,11 @@ public class CPU_Lead_Detail extends BaseFile {
                     System.out.println("primarynew value is :"+primarynew);
 
                     if (primarynew != null) {
-                        JSONArray bankAccDetails = (JSONArray) primarynew.get("bank_acc_details");
+                         bankAccDetails = (JSONArray) primarynew.get("bank_acc_details");
                         System.out.println("bankAccDetails value is "+ bankAccDetails);
 
                         if (bankAccDetails != null) {
-                            int bankAccDetailsSize = bankAccDetails.size();
+                             bankAccDetailsSize = bankAccDetails.size();
                             System.out.println("Total bank account details: " + bankAccDetailsSize);
                         } else {
                             System.out.println("No bank account details found.");

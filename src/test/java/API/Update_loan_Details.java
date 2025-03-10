@@ -124,7 +124,8 @@ public class Update_loan_Details extends BaseFile {
 
         }
 
-        if (CPU_Lead_Detail.portfolio_type.equals("home loan") && CPU_Lead_Detail.borrower_type.equals("sep")) {
+        if (CPU_Lead_Detail.portfolio_type.equals("home loan") && CPU_Lead_Detail.borrower_type.equals("sep"))
+        {
 
 
         if (testData.entrySet() != null) {
@@ -230,6 +231,155 @@ public class Update_loan_Details extends BaseFile {
         }
            System.out.println("Size of guarantors is : "+CPU_Lead_Detail.guarantorSize);
 
-    }}
+    }
+
+        if (CPU_Lead_Detail.portfolio_type.equals("home loan") && CPU_Lead_Detail.borrower_type.equals("sep"))
+        {
+            {
+                System.out.println("Total bankAccDetails: " + CPU_Lead_Detail.bankAccDetailsSize);
+                for (int i = 0; i < CPU_Lead_Detail.bankAccDetailsSize; i++) {
+
+
+              //      String patchPayload = String.format("{\"activeFormIndex\":0,\"applicant\":{\"primary\":{\"bank_acc_details_index\":{\"%d\":{\"bank_name\":\"STATE BANK OF INDIA\",\"account_number\":\"564534221122\",\"name_of_account_holder\":\"sam\",\"branch_name\":\"PORBANDAR\",\"account_since\":\"Less than 1 year\",\"account_type\":\"Current\",\"ifsc_code\":\"SBIN0000456\"}}},\"organization_info\":{\"organization_name\":\"TRIMURTI two\",\"constitution\":\"individual\",\"nature_of_business\":\"manufacturing\",\"investment_in_business\":\"0\",\"current_business_experience\":\"25\",\"overall_business_experience\":\"25\"},\"address_details\":{\"permanent_address_same_as\":\"Current\",\"permanent_address\":{\"address_line_1\":\"CO SUSHIL GYANCHAND GADI PLOT NO\",\"address_line_2\":\"127 POCKED D SECTOR 4 BAWANA BAWANA\",\"landmark\":\"\",\"taluka\":\"talik\",\"area\":\"North\",\"city\":\"NORTH DELHI\",\"district\":\"Delhi\",\"state\":\"DELHI\",\"pincode\":\"110039\"},\"current_address\":{\"address_line_2\":\"127 POCKED D SECTOR 4 BAWANA BAWANA\",\"landmark\":\"\",\"taluka\":\"talik\",\"area\":\"North\",\"city\":\"NORTH DELHI\",\"district\":\"Delhi\",\"state\":\"DELHI\",\"address_line_1\":\"CO SUSHIL GYANCHAND GADI PLOT NO\",\"pincode\":\"110039\"},\"business_address\":{\"address_line_1\":\"CO SUSHIL GYANCHAND GADI PLOT NO\",\"address_line_2\":\"127 POCKED D SECTOR 4 BAWANA BAWANA\",\"taluka\":\"Talik\",\"area\":\"North\",\"city\":\"NORTH DELHI\",\"district\":\"Delhi\",\"state\":\"DELHI\",\"pincode\":\"110039\"},\"current_address_same_as\":\"Aadhar\",\"current_address_vintage_in_months\":120},\"kyc_ckyc\":{\"ckyc_num\":null},\"kyc_aadhar\":{\"gender\":\"male\",\"dob\":\"1953-05-02\",\"aadhaar_number\":\"xxxxxxxx2110\",\"name\":\"HL PRIME\",\"address_line_1\":\"CO SUSHIL GYANCHAND GADI PLOT NO\",\"address_line_2\":\"127 POCKED D SECTOR 4 BAWANA BAWANA\",\"landmark\":\"\",\"taluka\":\"Talik\",\"area\":\"North\",\"city\":\"NORTH DELHI\",\"district\":\"Delhi\",\"state\":\"DELHI\",\"pincode\":\"110039\"},\"kyc_additional_doc\":[],\"mobile_number\":\"7847585658\",\"borrower_type\":\"sep\",\"email\":\"Sam@gmail.com\",\"kyc_pan\":{\"pan_number\":\"CYMPB5839A\",\"father_name\":\"BORUGULA MUNASWAMY\"},\"additional_info\":{\"mother_name\":\"SUMAN\",\"educational_qualification\":\"post graduate or master degree\",\"spouse_name\":\"\"},\"number_of_dependents\":\"2\"},\"primary\":{\"inquiry_details\":{\"entity_type\":\"individual\",\"profession_type\":\"chartered accountants\",\"income_program\":\"nip\",\"gross_income_per_month\":\"25000\",\"gross_income_yearly\":300000,\"marital_status\":\"married\",\"alternate_phone_number\":\"\",\"bt_loan_monthly_emi\":\"0\",\"applicant_obligation\":\"1200\",\"type_of_financial_institution\":\"\",\"name_of_financial_institution\":\"\"}}}", i);
+
+
+                      String patchPayload = "{\n" +
+                              "    \"activeFormIndex\": 0,\n" +
+                              "    \"applicant\": {\n" +
+                              "        \"primary\": {\n" +
+                              "            \"bank_acc_details_index\": {\n" +
+                              "                \"" + i + "\": {\n" +
+                              "                    \"bank_name\": \"STATE BANK OF INDIA\",\n" +
+                              "                    \"account_number\": \"564534221122\",\n" +
+                              "                    \"name_of_account_holder\": \"sam\",\n" +
+                              "                    \"branch_name\": \"PORBANDAR\",\n" +
+                              "                    \"account_since\": \"Less than 1 year\",\n" +
+                              "                    \"account_type\": \"Current\",\n" +
+                              "                    \"ifsc_code\": \"SBIN0000456\"\n" +
+                              "                }\n" +
+                              "            },\n" +
+                              "            \"organization_info\": {\n" +
+                              "                \"organization_name\": \"TRIMURTI four\",\n" +
+                              "                \"constitution\": \"individual\",\n" +
+                              "                \"nature_of_business\": \"manufacturing\",\n" +
+                              "                \"investment_in_business\": \"0\",\n" +
+                              "                \"current_business_experience\": \"25\",\n" +
+                              "                \"overall_business_experience\": \"25\"\n" +
+                              "            },\n" +
+                              "            \"address_details\": {\n" +
+                              "                \"permanent_address_same_as\": \"Current\",\n" +
+                              "                \"permanent_address\": {\n" +
+                              "                    \"address_line_1\": \"CO SUSHIL GYANCHAND GADI PLOT NO\",\n" +
+                              "                    \"address_line_2\": \"127 POCKED D SECTOR 4 BAWANA BAWANA\",\n" +
+                              "                    \"landmark\": \"\",\n" +
+                              "                    \"taluka\": \"talik\",\n" +
+                              "                    \"area\": \"North\",\n" +
+                              "                    \"city\": \"NORTH DELHI\",\n" +
+                              "                    \"district\": \"Delhi\",\n" +
+                              "                    \"state\": \"DELHI\",\n" +
+                              "                    \"pincode\": \"110039\"\n" +
+                              "                },\n" +
+                              "                \"current_address\": {\n" +
+                              "                    \"address_line_2\": \"127 POCKED D SECTOR 4 BAWANA BAWANA\",\n" +
+                              "                    \"landmark\": \"\",\n" +
+                              "                    \"taluka\": \"talik\",\n" +
+                              "                    \"area\": \"North\",\n" +
+                              "                    \"city\": \"NORTH DELHI\",\n" +
+                              "                    \"district\": \"Delhi\",\n" +
+                              "                    \"state\": \"DELHI\",\n" +
+                              "                    \"address_line_1\": \"CO SUSHIL GYANCHAND GADI PLOT NO\",\n" +
+                              "                    \"pincode\": \"110039\"\n" +
+                              "                },\n" +
+                              "                \"business_address\": {\n" +
+                              "                    \"address_line_1\": \"CO SUSHIL GYANCHAND GADI PLOT NO\",\n" +
+                              "                    \"address_line_2\": \"127 POCKED D SECTOR 4 BAWANA BAWANA\",\n" +
+                              "                    \"taluka\": \"Talik\",\n" +
+                              "                    \"area\": \"North\",\n" +
+                              "                    \"city\": \"NORTH DELHI\",\n" +
+                              "                    \"district\": \"Delhi\",\n" +
+                              "                    \"state\": \"DELHI\",\n" +
+                              "                    \"pincode\": \"110039\"\n" +
+                              "                },\n" +
+                              "                \"current_address_same_as\": \"Aadhar\",\n" +
+                              "                \"current_address_vintage_in_months\": 120\n" +
+                              "            },\n" +
+                              "            \"kyc_ckyc\": {\n" +
+                              "                \"ckyc_num\": null\n" +
+                              "            },\n" +
+                              "            \"kyc_aadhar\": {\n" +
+                              "                \"gender\": \"male\",\n" +
+                              "                \"dob\": \"1953-05-02\",\n" +
+                              "                \"aadhaar_number\": \"xxxxxxxx2110\",\n" +
+                              "                \"name\": \"HL PRIME\",\n" +
+                              "                \"address_line_1\": \"CO SUSHIL GYANCHAND GADI PLOT NO\",\n" +
+                              "                \"address_line_2\": \"127 POCKED D SECTOR 4 BAWANA BAWANA\",\n" +
+                              "                \"landmark\": \"\",\n" +
+                              "                \"taluka\": \"Talik\",\n" +
+                              "                \"area\": \"North\",\n" +
+                              "                \"city\": \"NORTH DELHI\",\n" +
+                              "                \"district\": \"Delhi\",\n" +
+                              "                \"state\": \"DELHI\",\n" +
+                              "                \"pincode\": \"110039\"\n" +
+                              "            },\n" +
+                              "            \"kyc_additional_doc\": [],\n" +
+                              "            \"mobile_number\": \"7847585658\",\n" +
+                              "            \"borrower_type\": \"sep\",\n" +
+                              "            \"email\": \"Sam@gmail.com\",\n" +
+                              "            \"kyc_pan\": {\n" +
+                              "                \"pan_number\": \"CYMPB5839A\",\n" +
+                              "                \"father_name\": \"BORUGULA MUNASWAMY\"\n" +
+                              "            },\n" +
+                              "            \"additional_info\": {\n" +
+                              "                \"mother_name\": \"SUMAN\",\n" +
+                              "                \"educational_qualification\": \"post graduate or master degree\",\n" +
+                              "                \"spouse_name\": \"\"\n" +
+                              "            },\n" +
+                              "            \"number_of_dependents\": \"2\"\n" +
+                              "        }\n" +
+                              "    },\n" +
+                              "    \"primary\": {\n" +
+                              "        \"inquiry_details\": {\n" +
+                              "            \"entity_type\": \"individual\",\n" +
+                              "            \"profession_type\": \"chartered accountants\",\n" +
+                              "            \"income_program\": \"nip\",\n" +
+                              "            \"gross_income_per_month\": \"25000\",\n" +
+                              "            \"gross_income_yearly\": 300000,\n" +
+                              "            \"marital_status\": \"married\",\n" +
+                              "            \"alternate_phone_number\": \"\",\n" +
+                              "            \"bt_loan_monthly_emi\": \"0\",\n" +
+                              "            \"applicant_obligation\": \"1200\",\n" +
+                              "            \"type_of_financial_institution\": \"\",\n" +
+                              "            \"name_of_financial_institution\": \"\"\n" +
+                              "        }\n" +
+                              "    }\n" +
+                              "}";
+                    System.out.println("Start i" +i+" bankAccDetails" );
+                    Response responses = RestAssured.given()
+                            .baseUri(propReader.getProp().get("loandetailupdateURL").toString().trim()+CPU_List.obj_ID).body(patchPayload)
+                            .header("accept", "application/json, text/plain, */*")
+                            .header("authorization",  ILOS_Login.Token)
+                            .header("origin", "https://ilos-uat.capriglobal.in")
+                            .header("referer", "https://ilos-uat.capriglobal.in/")
+                            .header("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36")
+                            .contentType(ContentType.JSON)
+                            .when().log().all().patch();
+
+
+
+                    System.out.println("PATCH Response: " + responses.getBody().asString());
+                    Assert.assertEquals(responses.getStatusCode(), 200, "PATCH request failed!");
+
+                    System.out.println("END i" +i+" bankAccDetails" );
+
+
+                }
+
+            }
+
+        }
+
+
+
+    }
 
     }
