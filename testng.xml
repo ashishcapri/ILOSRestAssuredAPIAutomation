@@ -4,7 +4,6 @@
 	<test thread-count="5" name="Test">
 		<classes>
 		   <class name="API.ILOS_Login" />
-<!--			<class name="API.POC_ILOS_Login" />-->
 			<class name="API.CPU_List" />
 			<class name="API.CPU_Lead_Detail" />
 			<class name="API.Update_loan_Details" />

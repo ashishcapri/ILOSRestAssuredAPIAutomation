@@ -75,6 +75,13 @@ public class Update_loan_Details extends BaseFile {
 
 
 
+        if (CPU_Lead_Detail.coApplicants != null)
+        {
+            for (int i = 0; i < CPU_Lead_Detail.coApplicantsSize; i++) {
+                JSONObject coApplicant = (JSONObject) CPU_Lead_Detail.coApplicants.get(i);
+                String entityType = (String) coApplicant.get("entity_type");
+            }
+        }
 
         if (CPU_Lead_Detail.guarantors != null) {
             System.out.println("Total guarantors: " + CPU_Lead_Detail.guarantorSize);

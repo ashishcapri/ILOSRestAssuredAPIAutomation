@@ -34,6 +34,10 @@ public class CPU_Lead_Detail extends BaseFile {
     public static int guarantorSize=0;
     public static JSONArray guarantors = new JSONArray(); // Declare globally
 
+    public static int coApplicantsSize=0;
+    public static JSONArray coApplicants = new JSONArray(); // Declare globally
+
+
 
     //Map<String, Object> cache = ReadMetaData.getMetdataCache();
 
@@ -156,10 +160,10 @@ public class CPU_Lead_Detail extends BaseFile {
                 JSONObject applicant = (JSONObject) dt.get("applicant");
 
                 if (applicant != null) {
-                    JSONArray coApplicants = (JSONArray) applicant.get("co_applicant");
+                     coApplicants = (JSONArray) applicant.get("co_applicant");
 
                     if (coApplicants != null) {
-                        int coApplicantsSize = coApplicants.size();
+                         coApplicantsSize = coApplicants.size();
                         System.out.println("Total coApplicants: " + coApplicantsSize);
                     } else {
                         System.out.println("No coapplicant found.");
@@ -177,5 +181,43 @@ public class CPU_Lead_Detail extends BaseFile {
 
 
 ///
+/// ////////////
+
+        try {
+            JSONObject apiResponse = (JSONObject) new JSONParser().parse(response);
+            JSONObject dt = (JSONObject) apiResponse.get("dt");
+
+            if (dt != null) {
+                JSONObject applicant = (JSONObject) dt.get("applicant");
+
+                if (applicant != null) {
+                    JSONObject primarynew = (JSONObject) applicant.get("primary");
+                    System.out.println("primarynew value is :"+primarynew);
+
+                    if (primarynew != null) {
+                        JSONArray bankAccDetails = (JSONArray) primarynew.get("bank_acc_details");
+                        System.out.println("bankAccDetails value is "+ bankAccDetails);
+
+                        if (bankAccDetails != null) {
+                            int bankAccDetailsSize = bankAccDetails.size();
+                            System.out.println("Total bank account details: " + bankAccDetailsSize);
+                        } else {
+                            System.out.println("No bank account details found.");
+                        }
+                    } else {
+                        System.out.println("Primary is missing or null.");
+                    }
+                } else {
+                    System.out.println("Applicant is missing or null.");
+                }
+            } else {
+                System.out.println("dt is missing or null.");
+            }
+        } catch (ParseException e) {
+            System.err.println("Error parsing JSON response: " + e.getMessage());
+        }
+
+/// ///////////
+
 
     }}
