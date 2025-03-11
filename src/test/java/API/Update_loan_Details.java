@@ -20,6 +20,7 @@ import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class Update_loan_Details extends BaseFile {
 
@@ -71,6 +72,8 @@ public class Update_loan_Details extends BaseFile {
     private void pinCodeAPI(Map<String, Object> testData) {
         Comman.Setdate();
 
+                Comman.generateRandom16DigitNumber();
+
         System.out.println("_________ print me _______ 4____");
 
 
@@ -80,7 +83,156 @@ public class Update_loan_Details extends BaseFile {
             for (int i = 0; i < CPU_Lead_Detail.coApplicantsSize; i++) {
                 JSONObject coApplicant = (JSONObject) CPU_Lead_Detail.coApplicants.get(i);
                 String entityType = (String) coApplicant.get("entity_type");
-            }
+                String borrowertype = (String) coApplicant.get("borrower_type");
+                JSONArray    bankAccDetails = (JSONArray) coApplicant.get("bank_acc_details");
+                int  bankAccDetailsSize = bankAccDetails.size();
+
+                System.out.println("size of bank account details" + bankAccDetailsSize);
+
+
+                System.out.println("Co-applicant " + (i + 1) + " Entity Type new: " + entityType);
+                System.out.println("Co-applicant " + (i + 1) + " Borrower Type new: " + borrowertype);
+                for (int j = 0; j < bankAccDetailsSize; j++) {
+
+                if (entityType.equals("individual") && borrowertype.equals("sep")){
+
+                    System.out.println("Co-applicant " + (i) + " bank acc details: " +(j) + Comman.random16DigitNumber);
+
+
+
+                    String patchPayloadCoApp = "{\n" +
+                            "    \"applicant\": {\n" +
+                            "        \"co_applicant_index\": {\n" +
+                            "            \""+i+"\": {\n" +
+                            "                \"bank_acc_details_index\": {\n" +
+                            "                    \""+j+"\": {\n" +
+                            "                        \"bank_name\": \"PUNJAB NATIONAL BANK two\",\n" +
+                            "                        \"account_number\": \"" + (1000000000000000L + new Random().nextLong(9000000000000000L))+"\",\n" +
+
+                            "           \"name_of_account_holder\": \"test\",\n" +
+                            "                        \"branch_name\": \"PUNE BHOSARI IND. AREA, DISTT.\",\n" +
+                            "                        \"account_since\": \"More than 10 years\",\n" +
+                            "                        \"account_type\": \"Savings\",\n" +
+                            "                        \"ifsc_code\": \"PUNB0291900\"\n" +
+                            "                    }\n" +
+                            "                },\n" +
+                            "                \"organization_info\": {\n" +
+                            "                    \"organization_name\": \"TEST\",\n" +
+                            "                    \"constitution\": \"individual\",\n" +
+                            "                    \"nature_of_business\": \"service\",\n" +
+                            "                    \"current_business_experience\": \"5\",\n" +
+                            "                    \"overall_business_experience\": \"12\"\n" +
+                            "                },\n" +
+                            "                \"designation\": \"dovtor\",\n" +
+                            "                \"authorised_signatory\": \"Yes\",\n" +
+                            "                \"co_applicant_category\": \"doctor\",\n" +
+                            "                \"mobile_number\": \"9787875787\",\n" +
+                            "                \"entity_type\": \"individual\",\n" +
+                            "                \"borrower_type\": \"sep\",\n" +
+                            "                \"email\": \"\",\n" +
+                            "                \"address_details\": {\n" +
+                            "                    \"current_address_same_as\": \"Aadhar\",\n" +
+                            "                    \"current_address_vintage_in_months\": 120,\n" +
+                            "                    \"permanent_address_same_as\": \"Aadhar\",\n" +
+                            "                    \"permanent_address\": {\n" +
+                            "                        \"address_line_1\": \"RAM  288 KH WARD NO SO CHAND\",\n" +
+                            "                        \"address_line_2\": \"\",\n" +
+                            "                        \"landmark\": \"\",\n" +
+                            "                        \"taluka\": \"DUNGARGARH\",\n" +
+                            "                        \"area\": \"DUNGARGARH\",\n" +
+                            "                        \"city\": \"JANJGIR CHAMPA\",\n" +
+                            "                        \"district\": \"champa\",\n" +
+                            "                        \"state\": \"Chattisgarh\",\n" +
+                            "                        \"pincode\": \"495668\"\n" +
+                            "                    },\n" +
+                            "                    \"current_address\": {\n" +
+                            "                        \"address_line_1\": \"RAM  288 KH WARD NO SO CHAND\",\n" +
+                            "                        \"address_line_2\": \"\",\n" +
+                            "                        \"landmark\": \"\",\n" +
+                            "                        \"taluka\": \"talik\",\n" +
+                            "                        \"area\": \"Grurgram\",\n" +
+                            "                        \"city\": \"JANJGIR CHAMPA\",\n" +
+                            "                        \"district\": \"champa\",\n" +
+                            "                        \"state\": \"Chattisgarh\",\n" +
+                            "                        \"pincode\": \"495668\"\n" +
+                            "                    },\n" +
+                            "                    \"business_address\": {\n" +
+                            "                        \"address_line_1\": \"RAM  288 KH WARD NO SO CHAND\",\n" +
+                            "                        \"address_line_2\": \"\",\n" +
+                            "                        \"taluka\": \"talik\",\n" +
+                            "                        \"area\": \"Grurgram\",\n" +
+                            "                        \"city\": \"JANJGIR CHAMPA\",\n" +
+                            "                        \"district\": \"champa\",\n" +
+                            "                        \"state\": \"Chattisgarh\",\n" +
+                            "                        \"pincode\": \"495668\"\n" +
+                            "                    }\n" +
+                            "                },\n" +
+                            "                \"gross_income_per_month\": \"150000\",\n" +
+                            "                \"gross_income_yearly\": 1800000,\n" +
+                            "                \"additional_info\": {\n" +
+                            "                    \"marital_status\": \"single\",\n" +
+                            "                    \"mother_name\": \"RANI\",\n" +
+                            "                    \"educational_qualification\": \"post graduate or master degree\",\n" +
+                            "                    \"spouse_name\": \"\"\n" +
+                            "                },\n" +
+                            "                \"relationship\": \"daughter\",\n" +
+                            "                \"is_financial_co_applicant\": \"Yes\",\n" +
+                            "                \"number_of_dependents\": \"2\",\n" +
+                            "                \"kyc_ckyc\": {\n" +
+                            "                    \"ckyc_num\": null\n" +
+                            "                },\n" +
+                            "                \"kyc_pan\": {\n" +
+                            "                    \"pan_number\": \"BDVPR3698Q\",\n" +
+                            "                    \"father_name\": \"LAKSHMINARYANAPPA\"\n" +
+                            "                },\n" +
+                            "                \"kyc_aadhar\": {\n" +
+                            "                    \"gender\": \"male\",\n" +
+                            "                    \"aadhaar_number\": \"xxxxxxxx5867\",\n" +
+                            "                    \"name\": \"RAJA\",\n" +
+                            "                    \"address_line_1\": \"RAM  288 KH WARD NO SO CHAND\",\n" +
+                            "                    \"address_line_2\": \"\",\n" +
+                            "                    \"landmark\": \"Bank of baroda\",\n" +
+                            "                    \"taluka\": \"talik\",\n" +
+                            "                    \"area\": \"Grurgram\",\n" +
+                            "                    \"city\": \"JANJGIR CHAMPA\",\n" +
+                            "                    \"district\": \"champa\",\n" +
+                            "                    \"state\": \"Chattisgarh\",\n" +
+                            "                    \"pincode\": \"495668\",\n" +
+                            "                    \"dob\": \"1992-09-07\"\n" +
+                            "                },\n" +
+                            "                \"kyc_additional_doc\": [\n" +
+                            "                    {\n" +
+                            "                        \"url\": \"https://pragati-uat-bucket.s3.ap-south-1.amazonaws.com/uploads/586908d4-9b1e-47f4-9ba5-7600ab430628_rn_image_picker_lib_temp_69fdcda5-a96e-4462-a2c8-86e01b3d6860jpg.jpg\",\n" +
+                            "                        \"id_number\": \"NRD3354297\",\n" +
+                            "                        \"document_type\": \"Voter ID\",\n" +
+                            "                        \"valid_upto\": null\n" +
+                            "                    }\n" +
+                            "                ]\n" +
+                            "            }\n" +
+                            "        }\n" +
+                            "    }\n" +
+                            "}";
+                    System.out.println("Start one i " +i+" coapplicant" );
+                    Response responses = RestAssured.given()
+                            .baseUri(propReader.getProp().get("loandetailupdateURL").toString().trim()+CPU_List.obj_ID).body(patchPayloadCoApp)
+                            .header("accept", "application/json, text/plain, */*")
+                            .header("authorization",  ILOS_Login.Token)
+                            .header("origin", "https://ilos-uat.capriglobal.in")
+                            .header("referer", "https://ilos-uat.capriglobal.in/")
+                            .header("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36")
+                            .contentType(ContentType.JSON)
+                            .when().log().all().patch();
+
+
+
+                    System.out.println("PATCH Response: " + responses.getBody().asString());
+                    Assert.assertEquals(responses.getStatusCode(), 200, "PATCH request failed!");
+
+                    System.out.println("END one i" +i+" bankAccDetails" );
+
+                }
+
+            }}
         }
 
         if (CPU_Lead_Detail.guarantors != null) {
