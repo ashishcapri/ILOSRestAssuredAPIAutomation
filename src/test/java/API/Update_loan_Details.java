@@ -531,6 +531,74 @@ public class Update_loan_Details extends BaseFile {
         }
 
 
+        if (CPU_Lead_Detail.propertyDetails != null && CPU_Lead_Detail.portfolio_type.equals("home loan") && CPU_Lead_Detail.borrower_type.equals("sep")){
+
+            for (int i = 0; i < CPU_Lead_Detail.propertyDetailsSize; i++) {
+
+                String patchPayloadProperty = "{\n" +
+                        "    \"primary\": {\n" +
+                        "        \"inquiry_details\": {\n" +
+                        "            \"transaction_type\": \"new purchase\"\n" +
+                        "        }\n" +
+                        "    },\n" +
+                        "    \"applicant\": {\n" +
+                        "        \"primary\": {\n" +
+                        "            \"property_details_index\": {\n" +
+                        "                \"" + i + "\": {\n" +
+                        "                    \"property_type\": \"non diverted\",\n" +
+                        "                    \"property_ownership\": {\n" +
+                        "                        \"property_owners\": [\n" +
+                        "                            {\n" +
+                        "                                \"owner_id\": 925657,\n" +
+                        "                                \"owner_name\": \"HL PRIME\",\n" +
+                        "                                \"owner_type\": \"Primary Applicant\"\n" +
+                        "                            }\n" +
+                        "                        ],\n" +
+                        "                        \"type\": \"NO\"\n" +
+                        "                    },\n" +
+                        "                    \"tentative_property_value\": \"400002\",\n" +
+                        "                    \"refinance_transaction\": \"NO\",\n" +
+                        "                    \"is_it_seller_bt\": \"NO\",\n" +
+                        "                    \"property_address\": {\n" +
+                        "                        \"address_line_1\": \" new CO SUSHIL GYANCHAND GADI PLOT NO\",\n" +
+                        "                        \"address_line_2\": \"127 POCKED D SECTOR 4 BAWANA BAWANA\",\n" +
+                        "                        \"taluka\": \"Tahsil\",\n" +
+                        "                        \"area\": \"North\",\n" +
+                        "                        \"city\": \"NORTH DELHI\",\n" +
+                        "                        \"district\": \"Delhi\",\n" +
+                        "                        \"state\": \"DELHI\",\n" +
+                        "                        \"pincode\": \"110039\"\n" +
+                        "                    },\n" +
+                        "                    \"occupancy\": \"vacant\",\n" +
+                        "                    \"area_in_sqft\": \"230\"\n" +
+                        "                }\n" +
+                        "            }\n" +
+                        "        }\n" +
+                        "    }\n" +
+                        "}";
+
+                System.out.println("Start i" +i+" bankAccDetails" );
+                Response responses = RestAssured.given()
+                        .baseUri(propReader.getProp().get("loandetailupdateURL").toString().trim()+CPU_List.obj_ID).body(patchPayloadProperty)
+                        .header("accept", "application/json, text/plain, */*")
+                        .header("authorization",  ILOS_Login.Token)
+                        .header("origin", "https://ilos-uat.capriglobal.in")
+                        .header("referer", "https://ilos-uat.capriglobal.in/")
+                        .header("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36")
+                        .contentType(ContentType.JSON)
+                        .when().log().all().patch();
+
+
+
+                System.out.println("PATCH Response: " + responses.getBody().asString());
+                Assert.assertEquals(responses.getStatusCode(), 200, "PATCH request failed!");
+
+                System.out.println("END i" +i+" bankAccDetails" );
+
+
+            }
+
+        }
 
     }
 

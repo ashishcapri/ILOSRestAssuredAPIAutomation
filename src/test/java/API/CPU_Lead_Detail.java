@@ -40,9 +40,13 @@ public class CPU_Lead_Detail extends BaseFile {
     public static int bankAccDetailsSize=0;
     public static JSONArray bankAccDetails = new JSONArray(); // Declare globally
 
+    public static int propertyDetailsSize=0;
+    public static JSONArray propertyDetails = new JSONArray(); // Declare globally
 
 
-    //Map<String, Object> cache = ReadMetaData.getMetdataCache();
+
+
+        //Map<String, Object> cache = ReadMetaData.getMetdataCache();
 
     /**
      * This method is used to read from excel.
@@ -201,7 +205,15 @@ public class CPU_Lead_Detail extends BaseFile {
                          bankAccDetails = (JSONArray) primarynew.get("bank_acc_details");
                         System.out.println("bankAccDetails value is "+ bankAccDetails);
 
-                        if (bankAccDetails != null) {
+                        propertyDetails = (JSONArray) primarynew.get("property_details");
+                        System.out.println("propertyDetails value is "+ propertyDetails);
+
+                        if (propertyDetails != null ) {
+                            propertyDetailsSize = propertyDetails.size();
+                            System.out.println("Total properties are: " + propertyDetailsSize);
+                        }
+
+                        if (bankAccDetails != null ) {
                              bankAccDetailsSize = bankAccDetails.size();
                             System.out.println("Total bank account details: " + bankAccDetailsSize);
                         } else {
