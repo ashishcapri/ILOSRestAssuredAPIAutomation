@@ -43,6 +43,8 @@ public class CPU_Lead_Detail extends BaseFile {
     public static int propertyDetailsSize=0;
     public static JSONArray propertyDetails = new JSONArray(); // Declare globally
 
+    public static int referenceDetailsSize=0;
+    public static JSONArray referenceDetails = new JSONArray(); // Declare globally
 
 
 
@@ -208,9 +210,20 @@ public class CPU_Lead_Detail extends BaseFile {
                         propertyDetails = (JSONArray) primarynew.get("property_details");
                         System.out.println("propertyDetails value is "+ propertyDetails);
 
+                        referenceDetails = (JSONArray) primarynew.get("property_details");
+                        System.out.println("referenceDetails value is "+ referenceDetails);
+
+
+                        if (referenceDetails != null ) {
+                            referenceDetailsSize = referenceDetails.size();
+                            System.out.println("Total references are: " + referenceDetailsSize);
+
+                        }
+
                         if (propertyDetails != null ) {
                             propertyDetailsSize = propertyDetails.size();
                             System.out.println("Total properties are: " + propertyDetailsSize);
+
                         }
 
                         if (bankAccDetails != null ) {

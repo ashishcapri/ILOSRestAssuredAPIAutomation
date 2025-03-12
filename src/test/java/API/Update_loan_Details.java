@@ -598,7 +598,76 @@ public class Update_loan_Details extends BaseFile {
 
             }
 
+            for (int k = 0; k < CPU_Lead_Detail.referenceDetailsSize; k++) {
+
+                String patchPayloadReferences = "{\n" +
+                        "    \"applicant\": {\n" +
+                        "        \"primary\": {\n" +
+                        "            \"reference_index\": {\n" +
+                        "                \""+k+"\": {\n" +
+                        "                    \"full_name\": \"sam\",\n" +
+                        "                    \"mobile\": \"7867890090\",\n" +
+                        "                    \"relationship_with_the_applicant\": \"son\",\n" +
+                        "                    \"knows_since\": \"2 Years 2 Months\",\n" +
+                        "                    \"occupation\": \"qa one\"\n" +
+                        "                },\n" +
+                        "                \""+k+"\": {\n" +
+                        "                    \"full_name\": \"sam\",\n" +
+                        "                    \"mobile\": \"7867890090\",\n" +
+                        "                    \"relationship_with_the_applicant\": \"son\",\n" +
+                        "                    \"knows_since\": \"3 Years 2 Months\",\n" +
+                        "                    \"occupation\": \"qa one\"\n" +
+                        "                }\n" +
+                        "            }\n" +
+                        "        }\n" +
+                        "    }\n" +
+                        "}";
+
+                System.out.println("Start k " +k+" referencesDetails" );
+                Response responses = RestAssured.given()
+                        .baseUri(propReader.getProp().get("loandetailupdateURL").toString().trim()+CPU_List.obj_ID).body(patchPayloadReferences)
+                        .header("accept", "application/json, text/plain, */*")
+                        .header("authorization",  ILOS_Login.Token)
+                        .header("origin", "https://ilos-uat.capriglobal.in")
+                        .header("referer", "https://ilos-uat.capriglobal.in/")
+                        .header("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36")
+                        .contentType(ContentType.JSON)
+                        .when().log().all().patch();
+
+
+
+                System.out.println("PATCH Response: " + responses.getBody().asString());
+                Assert.assertEquals(responses.getStatusCode(), 200, "PATCH request failed!");
+
+                System.out.println("END k " +k+" references" );
+
+
+            }
+
         }
+
+        String DmsUatPayload = "{\n" +
+                "    \"application_id\": " +
+                "\"" + CPU_List.app_ID + "\"" +
+                ",\n" +
+                "    \"is_new_application\": true\n" +
+                "}";
+
+
+
+
+
+                Response responses = RestAssured.given()
+                .baseUri(propReader.getProp().get("DmsUat").toString().trim()).body(DmsUatPayload)
+                .header("accept", "application/json, text/plain, */*")
+                .header("authorization",  ILOS_Login.Token)
+                .header("origin", "https://ilos-uat.capriglobal.in")
+                .header("referer", "https://ilos-uat.capriglobal.in/")
+                .header("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36")
+                .contentType(ContentType.JSON)
+                .when().log().all().post();
+
+        System.out.println("Application ID: " + CPU_List.app_ID);
 
     }
 
