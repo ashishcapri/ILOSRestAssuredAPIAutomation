@@ -17,10 +17,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class Update_loan_Details extends BaseFile {
 
@@ -646,6 +643,18 @@ public class Update_loan_Details extends BaseFile {
 
         }
 
+
+
+        /// ////////
+
+
+
+
+        /// ///////
+
+
+
+
         String DmsUatPayload = "{\n" +
                 "    \"application_id\": " +
                 "\"" + CPU_List.app_ID + "\"" +
@@ -669,6 +678,56 @@ public class Update_loan_Details extends BaseFile {
 
         System.out.println("Application ID: " + CPU_List.app_ID);
 
+    }
+
+
+    @Test
+    public void markSectionComplete() {
+        // Simulated CPU_Lead_Detail object (Replace with actual object fetch)
+
+
+
+        // Determine sections based on conditions
+        List<String> sections;
+        if (CPU_Lead_Detail.guarantors != null) {
+            sections = Arrays.asList("loan-details", "guarantor", "document", "property", "references");
+        } else if (CPU_Lead_Detail.coApplicants != null) {
+            sections = Arrays.asList("loan-details", "co-applicant", "document", "property", "references");
+        } else {
+            sections = Arrays.asList("loan-details", "co-applicant", "document", "property", "references");
+        }
+
+        // Loop through each section and send PATCH request
+        for (String section : sections) {
+            JSONObject requestBody = new JSONObject();
+            requestBody.put("section", section);
+
+
+            /// /
+
+            Response responses = RestAssured.given()
+                    .baseUri(propReader.getProp().get("MarkSecComp").toString().trim()+CPU_List.obj_ID).body(requestBody.toJSONString())
+                    .header("accept", "application/json, text/plain, */*")
+                    .header("authorization",  ILOS_Login.Token)
+                    .header("origin", "https://ilos-uat.capriglobal.in")
+                    .header("referer", "https://ilos-uat.capriglobal.in/")
+                    .header("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36")
+                    .contentType(ContentType.JSON)
+                    .when().log().all().patch();
+
+            System.out.println("Application ID: " + CPU_List.app_ID);
+        ///
+
+
+
+            // Log response
+            System.out.println("Response for section [" + section + "]: " + responses.getBody().asString());
+
+            // Validate response
+            Assert.assertEquals(responses.getStatusCode(), 200, "Failed for section: " + section);
+        }
+
+        System.out.println("✅ All sections marked complete successfully.");
     }
 
     }
