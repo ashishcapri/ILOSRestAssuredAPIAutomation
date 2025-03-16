@@ -18,6 +18,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Update_loan_Details extends BaseFile {
 
@@ -65,7 +66,7 @@ public class Update_loan_Details extends BaseFile {
      * This method is used to test the API.
      */
 
-    @Test(dataProvider = "SAAUTH")
+    @Test(priority = 0, dataProvider = "SAAUTH")
     private void pinCodeAPI(Map<String, Object> testData) {
         Comman.Setdate();
 
@@ -95,7 +96,7 @@ public class Update_loan_Details extends BaseFile {
 
                     System.out.println("Co-applicant " + (i) + " bank acc details: " +(j) + Comman.random16DigitNumber);
 
-
+                    Random random = new Random();
 
                     String patchPayloadCoApp = "{\n" +
                             "    \"applicant\": {\n" +
@@ -104,8 +105,8 @@ public class Update_loan_Details extends BaseFile {
                             "                \"bank_acc_details_index\": {\n" +
                             "                    \""+j+"\": {\n" +
                             "                        \"bank_name\": \"PUNJAB NATIONAL BANK two\",\n" +
-                            "                        \"account_number\": \"" + (1000000000000000L + new Random().nextLong(9000000000000000L))+"\",\n" +
-
+                            "                        \"account_number\": \"" + (1000000000000000L + Math.abs(ThreadLocalRandom.current().nextLong(9000000000000000L)))+"\",\n" +
+//"account_number\": \"" + (1000000000000000L + Math.abs(ThreadLocalRandom.current().nextLong(9000000000000000L))) + "\",\n" +
                             "           \"name_of_account_holder\": \"test\",\n" +
                             "                        \"branch_name\": \"PUNE BHOSARI IND. AREA, DISTT.\",\n" +
                             "                        \"account_since\": \"More than 10 years\",\n" +
@@ -681,7 +682,7 @@ public class Update_loan_Details extends BaseFile {
     }
 
 
-    @Test
+    @Test(priority = 1)
     public void markSectionComplete() {
         // Simulated CPU_Lead_Detail object (Replace with actual object fetch)
 
@@ -728,6 +729,51 @@ public class Update_loan_Details extends BaseFile {
         }
 
         System.out.println("✅ All sections marked complete successfully.");
+    }
+
+    @Test(priority = 2)
+    public void submitCPU() {
+
+        Response response = RestAssured.given()
+                .baseUri(propReader.getProp().get("GeneratePDF").toString().trim()+CPU_List.app_ID)
+                .header("accept", "application/json, text/plain, */*")
+                .header("authorization", ILOS_Login.Token)
+                .header("origin", "https://ilos-uat.capriglobal.in")
+                .header("referer", "https://ilos-uat.capriglobal.in/")
+                .header("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36")
+                .contentType(ContentType.JSON)
+                .when().log().all()
+                .get();
+
+        System.out.println("Response Status Code: " + response.getStatusCode());
+        System.out.println("Response Body: " + response.getBody().asString());
+
+
+        /// //////////////////
+
+        Response response2 = RestAssured.given()
+                .baseUri(propReader.getProp().get("SubmitLead").toString().trim() + CPU_List.obj_ID)
+                .header("accept", "application/json, text/plain, */*")
+                .header("authorization", ILOS_Login.Token)
+                .header("origin", "https://ilos-uat.capriglobal.in")
+                .header("referer", "https://ilos-uat.capriglobal.in/")
+                .header("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36")
+                .contentType(ContentType.JSON)
+                .when()
+                .patch();
+
+// Assert status code and log response
+        response2.then().statusCode(200).log().all();
+
+// Optionally, print response details
+        System.out.println("Response2 Status Code: " + response2.getStatusCode());
+        System.out.println("Response2 Body: " + response2.getBody().asString());
+        System.out.println("token is : " + token);
+
+
+
+
+
     }
 
     }
